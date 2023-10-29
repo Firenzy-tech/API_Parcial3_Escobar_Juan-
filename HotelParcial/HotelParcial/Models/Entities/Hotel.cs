@@ -38,6 +38,6 @@ namespace HotelParcial.Models.Entities
         [Display(Name = "Descripción del hotel")]
         [MaxLength(50)]
         [Required(ErrorMessage = "La descripción es requerida")]
-        public Room Rooms { get; set; }
+        public ICollection<Room>? Rooms { get; set; }
     }
 }

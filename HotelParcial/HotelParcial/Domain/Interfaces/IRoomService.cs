@@ -12,8 +12,6 @@ namespace HotelParcial.Domain.Interfaces
 
         Task<Room> GetRoomByHotelAsync(int IdHotel);
 
-
-
         Task AddRoomAsync(Room room);
 
         Task UpdateRoomAsync(Room room);
