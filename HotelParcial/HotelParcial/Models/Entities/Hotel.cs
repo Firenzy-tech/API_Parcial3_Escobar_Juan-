@@ -9,16 +9,7 @@ namespace HotelParcial.Models.Entities
         [MaxLength(50)]
         [Required(ErrorMessage = "El nombre es requerido")]
         public string Name { get; set; }
-
-        [Display(Name = "País del hotel")]
-        [MaxLength(50)]
-        [Required(ErrorMessage = "El país es requerido")]
-        public string Coutry { get; set; }
-
-        [Display(Name = "Ciudad del hotel")]
-        [MaxLength(50)]
-        [Required(ErrorMessage = "La ciudad es requerida")]
-        public string City { get; set; }
+    
 
         [Display(Name = "Dirección del hotel")]
         [MaxLength(50)]
@@ -32,12 +23,24 @@ namespace HotelParcial.Models.Entities
 
         [Display(Name = "Estrellas del hotel")]
         [Required(ErrorMessage = "Las estrellas son requeridas")]
-        public string PostalCode { get; set; }
+        [Range(1, 5, ErrorMessage = "Las estrellas deben estar entre 1 y 5")]
         public int Stars { get; set; }
 
         [Display(Name = "Descripción del hotel")]
         [MaxLength(50)]
         [Required(ErrorMessage = "La descripción es requerida")]
+
+        public Guid CityId { get; set; }
+
+
+        [Display(Name = "Descripción del hotel")]
+        [MaxLength(50)]
+        [Required(ErrorMessage = "La descripción es requerida")]
+        public string? Description { get; set; }
         public ICollection<Room>? Rooms { get; set; }
+
+        public City? City { get; set; }
+
+
     }
 }

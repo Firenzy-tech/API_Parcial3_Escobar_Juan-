@@ -11,7 +11,6 @@ namespace HotelParcial.Models.Entities
         public string Name { get; set; } //varchar(50)
 
         [Display(Name = "Estados")]
-        //relación con State 
         public ICollection<State>? States { get; set; }
     }
 }

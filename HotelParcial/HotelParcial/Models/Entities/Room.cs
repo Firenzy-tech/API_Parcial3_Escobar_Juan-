@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelParcial.Models.Entities
 {
@@ -19,6 +20,18 @@ namespace HotelParcial.Models.Entities
         public bool Availability { get; set; }
 
         [Display(Name = "Id Hotel")]
-        public int HotelId { get; set; }
+        public Guid HotelId { get; set; }
+
+        [Display(Name = "Descripción")]
+        [MaxLength(200)]
+        [Required(ErrorMessage = "El campo es obligatorio")]
+        public string Description { get; set; }
+
+        [Display(Name = "Precio")]
+        [Required(ErrorMessage = "El campo es obligatorio")]
+        public decimal Price { get; set; }
+
+        [JsonIgnore]
+        public Hotel? Hotel { get; set; }
     }
 }

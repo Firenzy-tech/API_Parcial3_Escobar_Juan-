@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using System.Xml.Linq;
 
 namespace HotelParcial.Models.Entities
@@ -12,11 +13,13 @@ namespace HotelParcial.Models.Entities
 
         [Display(Name = "País")]
         //Relación con Country
-        public Country? Country { get; set; } //Este representa un OBJETO DE COUNTRY
 
-        [Display(Name = "Id País")]
-        public int CountryId { get; set; } //FK
+
+     
+        public Guid CountryId { get; set; } //FK
 
         public ICollection<City>? Cities { get; set; }
+
+        public Country? Country { get; set; }
     }
 }
