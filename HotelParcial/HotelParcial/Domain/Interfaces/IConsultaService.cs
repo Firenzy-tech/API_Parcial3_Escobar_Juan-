@@ -2,7 +2,7 @@
 
 namespace HotelParcial.Domain.Interfaces
 {
-    public interface IGeneralService
+    public interface IConsultaService
     {
         Task<IEnumerable<Country>> GetAllAboutHotelAsync();
         Task<IEnumerable<Country>> HotelFreeAsync { get; }

@@ -17,7 +17,7 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IHotelService, HotelService>();
-builder.Services.AddScoped<IGeneralService, CitiesService>();
+builder.Services.AddScoped<IConsultaService, SearchService>();
 
 builder.Services.AddTransient<SeederDB>();
 
@@ -32,7 +32,7 @@ void SeederData()
 {
     IServiceScopeFactory? scopedFactory = app.Services.GetService<IServiceScopeFactory>();
 
-    using (IServiceScope? scope = scopedFactory.CreateScope())
+    using (IServiceScope? scope = scopedFactory!.CreateScope())
     {
         SeederDB? service = scope.ServiceProvider.GetService<SeederDB>();
         service.SeederAsync().Wait();

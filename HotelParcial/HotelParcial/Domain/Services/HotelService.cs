@@ -10,6 +10,24 @@ namespace HotelParcial.Domain.Services
         private readonly DataBaseContext _context;
         public HotelService(DataBaseContext context) => _context = context;
 
+        public async Task<Hotel> DeleteHotelByIdAsync(Guid id)
+        {
+
+            try
+            {
+                Hotel hotel = await _context.Hotels.FirstOrDefaultAsync(h => h.Id == id);
+                _context.Hotels.Remove(hotel!);
+                _context.SaveChanges();
+                return hotel;
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+
+                throw new Exception(dbUpdateException.InnerException?.Message ?? dbUpdateException.Message);
+            }
+           
+        }
+
         public async Task<IEnumerable<Hotel>> GetHotelAsync(string city)
         {
             IEnumerable<Hotel> hotels = await _context.Hotels

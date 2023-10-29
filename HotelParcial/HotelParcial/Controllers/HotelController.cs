@@ -49,5 +49,15 @@ namespace HotelParcial.Controllers
         }
 
 
+        [HttpDelete, ActionName("Delete")]
+        [Route("DeleteHotelById")]
+
+        public async Task<ActionResult<Hotel>> DeleteHotelById(Guid id)
+        {
+            var hotel = await _hotelService.DeleteHotelByIdAsync(id);
+            return Ok(hotel);
+        }
+
+
     }
 }

@@ -8,12 +8,12 @@ namespace HotelParcial.Controllers
     [ApiController]
     [Display(Name = "Registro general Hoteles")]
     [Route("api/[controller]")]
-    public class RegistroHotelesController:Controller
+    public class SearchController:Controller
     {
 
-        private readonly IGeneralService _citiesService;
+        private readonly IConsultaService _citiesService;
 
-        public RegistroHotelesController(IGeneralService citiesService)
+        public SearchController(IConsultaService citiesService)
         {
                 _citiesService =  citiesService;
         }
