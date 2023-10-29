@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelParcial.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20231029171044_parcial")]
+    [Migration("20231029180401_parcial")]
     partial class parcial
     {
         /// <inheritdoc />
