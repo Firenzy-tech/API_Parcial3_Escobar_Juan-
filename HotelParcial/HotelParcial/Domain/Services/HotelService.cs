@@ -55,13 +55,25 @@ namespace HotelParcial.Domain.Services
 
         public async Task<Hotel> GetHotelAsyncByIdForEdit(Guid id, int stars)
         {
-            var hotel = await _context.Hotels
-            .Include(h => h.Rooms)
-            .FirstOrDefaultAsync(h => h.Id == id);
-            hotel!.Stars = stars;
-            await UpdataStartsHotelById(hotel!, stars);
-            return hotel!;
+            try
+            {
+                Hotel? hotel = await _context.Hotels!.Where(h => h.Id == id).FirstOrDefaultAsync();
+                if (hotel != null)
+                {
+                    hotel!.Stars = stars;
+                    await UpdataStartsHotelById(hotel!, stars);
+                    return hotel;
+                }
+                
+                return hotel;
+                
 
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"No se pudo actualizar {ex.Message}");
+            }
         }
                
 

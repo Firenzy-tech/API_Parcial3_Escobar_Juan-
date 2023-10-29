@@ -23,11 +23,15 @@ namespace HotelParcial.Controllers
         {
             try
             {
-                var room = await _roomService.GetRoomByIdBeAvailable(idHotel, number);
-                var nameHotel = await _roomService.GetHotelByIdBeAvailable(idHotel);
-                if (room.Availability == false)
+                Room? room = await _roomService.GetRoomByIdBeAvailable(idHotel, number);
+                if(room == null)
                 {
-                    return NotFound($"No se encuentra disponibilidad para la habitacion con numero: {number} del hotel id:{nameHotel.Name}");
+                    return Ok($"No existe la habitacion con numero: {number} del hotel id:{idHotel}");
+                }
+                var nameHotel = await _roomService.GetHotelByIdBeAvailable(idHotel);
+                if (room!.Availability == false || room! == null)
+                {
+                    return Ok($"No se encuentra disponibilidad para la habitacion con numero: {number} del hotel id:{nameHotel.Name}");
                 }
 
                 Room responseRoom = new()

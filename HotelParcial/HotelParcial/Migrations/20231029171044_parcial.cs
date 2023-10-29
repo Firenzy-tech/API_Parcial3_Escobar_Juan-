@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HotelParcial.Migrations
 {
     /// <inheritdoc />
-    public partial class pp : Migration
+    public partial class parcial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

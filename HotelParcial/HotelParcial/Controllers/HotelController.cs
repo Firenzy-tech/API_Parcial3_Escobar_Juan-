@@ -68,6 +68,10 @@ namespace HotelParcial.Controllers
             try
             {
                 Hotel hotel = await _hotelService.GetHotelAsyncByIdForEdit(id, starts);
+                if(hotel == null)
+                {
+                    return NotFound($"No se encuentra parametro asociado al Id suministrado: {id}");
+                }   
                 return Ok($"Se ha actualizado las estrellas del hotel: {hotel.Name}, nueva calificación: {hotel.Stars} estrellas");
             }
             catch (Exception ex)
@@ -78,7 +82,6 @@ namespace HotelParcial.Controllers
             }
 
         }
-
 
         [HttpDelete, ActionName("Delete")]
         [Route("DeleteHotelById")]

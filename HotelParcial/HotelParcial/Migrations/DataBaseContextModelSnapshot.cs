@@ -202,38 +202,46 @@ namespace HotelParcial.Migrations
 
             modelBuilder.Entity("HotelParcial.Models.Entities.City", b =>
                 {
-                    b.HasOne("HotelParcial.Models.Entities.State", null)
+                    b.HasOne("HotelParcial.Models.Entities.State", "State")
                         .WithMany("Cities")
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("HotelParcial.Models.Entities.Hotel", b =>
                 {
-                    b.HasOne("HotelParcial.Models.Entities.City", null)
+                    b.HasOne("HotelParcial.Models.Entities.City", "City")
                         .WithMany("Hotels")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("HotelParcial.Models.Entities.Room", b =>
                 {
-                    b.HasOne("HotelParcial.Models.Entities.Hotel", null)
+                    b.HasOne("HotelParcial.Models.Entities.Hotel", "Hotel")
                         .WithMany("Rooms")
                         .HasForeignKey("HotelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Hotel");
                 });
 
             modelBuilder.Entity("HotelParcial.Models.Entities.State", b =>
                 {
-                    b.HasOne("HotelParcial.Models.Entities.Country", null)
+                    b.HasOne("HotelParcial.Models.Entities.Country", "Country")
                         .WithMany("States")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Country");
                 });
 
             modelBuilder.Entity("HotelParcial.Models.Entities.City", b =>
