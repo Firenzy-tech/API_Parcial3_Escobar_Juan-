@@ -1,38 +1,73 @@
 ﻿using HotelParcial.Domain.Interfaces;
+using HotelParcial.Models;
 using HotelParcial.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelParcial.Domain.Services
 {
     public class HotelService : IHotelService
     {
-        public Task AddHotelAsync(Hotel hotel)
+        private readonly DataBaseContext _context;
+        public HotelService(DataBaseContext context) => _context = context;
+
+        public async Task<IEnumerable<Hotel>> GetHotelAsync(string city)
+        {
+            IEnumerable<Hotel> hotels = await _context.Hotels
+                .Where(h => h.City!.Name == city)
+                .Include(h => h.Rooms!.Where(p => p.Availability == true))
+                .Include(h => h.City)
+                .ToListAsync();
+
+            return hotels;
+        }
+
+        public async Task<IEnumerable<Hotel>> GetHotelAsyncById(Guid id)
+        {
+            Guid idHotel = id;
+            IEnumerable<Hotel> hotels = _context.Hotels
+                .Where(h => h.Id == idHotel)
+                .Include(h => h.Rooms!.Where(p => p.Availability == true))
+                .Include(h => h.City)
+
+                .ToList();
+
+            return hotels;
+
+        }
+
+        public async Task<Hotel> GetHotelAsyncByIdForEdit(Guid id, int stars)
+        {
+            var hotel = await _context.Hotels
+            .Include(h => h.Rooms)
+            .FirstOrDefaultAsync(h => h.Id == id);
+            hotel!.Stars = stars;
+            await UpdataStartsHotelById(hotel!, stars);
+            return hotel!;
+
+        }
+
+        public Task<Hotel> GetHotelAsyncByIdForEdit(Guid id, string starts)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteHotelAsync(int id)
+        public Task<Hotel> UpdataStartsHotelById(Hotel hotel, int stars)
         {
-            throw new NotImplementedException();
+            try
+            {
+                hotel.ModifiedDate = DateTime.Now;
+                _context.Hotels.Update(hotel);
+                _context.SaveChanges();
+                return Task.FromResult(hotel);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
-        public Task<Hotel> GetHotelAsyncById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Hotel> GetHotelByCityAsync(int IdCiudad)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Hotel>> GetHotelsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateHotelAsync(Hotel hotel)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

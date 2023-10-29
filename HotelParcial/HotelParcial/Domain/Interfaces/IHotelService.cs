@@ -4,17 +4,11 @@ namespace HotelParcial.Domain.Interfaces
 {
     public interface IHotelService
     {
-        Task<IEnumerable<Hotel>> GetHotelsAsync();
+        Task<IEnumerable<Hotel>> GetHotelAsyncById(Guid id);
+        Task<Hotel> GetHotelAsyncByIdForEdit(Guid id, int starts);
+        Task<IEnumerable<Hotel>> GetHotelAsync(string city);
+        Task<Hotel> UpdataStartsHotelById(Hotel hotel, int starts);
 
-        Task<Hotel> GetHotelAsyncById(int id);
-
-        Task<Hotel> GetHotelByCityAsync(int IdCiudad);
-
-        Task AddHotelAsync(Hotel hotel);
-
-        Task UpdateHotelAsync(Hotel hotel);
-
-        Task DeleteHotelAsync(int id);
 
     }
 }

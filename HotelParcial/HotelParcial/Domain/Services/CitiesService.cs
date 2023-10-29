@@ -32,10 +32,15 @@ namespace HotelParcial.Domain.Services
 
         public async Task<IEnumerable<Room>> GetHotelFreeAsync()
         {
-            IEnumerable<Room> rooms = await _context.Rooms.FirstOrDefaultAsync(r => r.Availability == true) as IEnumerable<Room>;
-            return rooms.;
+            IEnumerable<Room> rooms = await _context.Rooms
+                .Where(r => r.Availability == true)
+                .Include(r => r.Hotel).Where(p => p.Hotel!.Id == p.HotelId)
+                .Include(r => r.Hotel!.City).Where(p => p.Hotel!.City!.Id == p.Hotel!.CityId)
+                .Include(r => r.Hotel!.City!.State).Where(p => p.Hotel!.City!.State!.Id == p.Hotel!.City!.StateId).IgnoreQueryFilters()
+                
+                .ToListAsync();
 
-            
+            return rooms;
         }
     }
 }
