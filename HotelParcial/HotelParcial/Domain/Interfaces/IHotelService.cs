@@ -11,6 +11,5 @@ namespace HotelParcial.Domain.Interfaces
         Task<Hotel> UpdataStartsHotelById(Hotel hotel, int starts);
         Task<Hotel> DeleteHotelByIdAsync(Guid id);
 
-
     }
 }

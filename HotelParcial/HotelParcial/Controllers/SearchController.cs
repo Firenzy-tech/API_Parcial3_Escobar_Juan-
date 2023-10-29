@@ -8,14 +8,14 @@ namespace HotelParcial.Controllers
     [ApiController]
     [Display(Name = "Registro general Hoteles")]
     [Route("api/[controller]")]
-    public class SearchController:Controller
+    public class SearchController : Controller
     {
 
         private readonly IConsultaService _citiesService;
 
         public SearchController(IConsultaService citiesService)
         {
-                _citiesService =  citiesService;
+            _citiesService = citiesService;
         }
 
         [HttpGet, ActionName("Get")]
@@ -39,8 +39,8 @@ namespace HotelParcial.Controllers
 
         public async Task<ActionResult<IEnumerable<Room>>> GetHotelFree()
         {
-          
-             try
+
+            try
             {
                 var rooms = await _citiesService.GetHotelFreeAsync();
                 return Ok(rooms);

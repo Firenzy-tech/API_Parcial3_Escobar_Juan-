@@ -6,7 +6,6 @@ namespace HotelParcial.Domain.Interfaces
     {
         Task<IEnumerable<Country>> GetAllAboutHotelAsync();
         Task<IEnumerable<Country>> HotelFreeAsync { get; }
-
         Task<IEnumerable<Room>> GetHotelFreeAsync();
     }
 }

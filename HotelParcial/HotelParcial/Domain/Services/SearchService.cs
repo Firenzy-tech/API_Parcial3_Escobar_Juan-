@@ -21,10 +21,10 @@ namespace HotelParcial.Domain.Services
 
 #pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
             IEnumerable<Country> countries = await _context.Countries
-                .Include(c => c.States!.Where(p=> p.Id == p.CountryId))
-                .ThenInclude(s => s.Cities!.Where(p => p.Id == p.StateId))
-                .ThenInclude(c => c.Hotels!.Where(p=> p.Id == p.CityId))
-                .ThenInclude(h => h.Rooms!.Where(p => p.Id == p.HotelId))
+                .Include(c => c.States)
+                .ThenInclude(s => s.Cities)
+                .ThenInclude(c => c.Hotels)
+                .ThenInclude(h => h.Rooms).IgnoreAutoIncludes()
                 .ToListAsync();
 #pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
             return countries;

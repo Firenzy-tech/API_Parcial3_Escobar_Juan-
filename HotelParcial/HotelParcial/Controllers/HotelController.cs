@@ -22,8 +22,20 @@ namespace HotelParcial.Controllers
 
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotelById(Guid id)
         {
-            var hotel = await _hotelService.GetHotelAsyncById(id);
-            return Ok(hotel);
+            try
+            {
+                var hotel = await _hotelService.GetHotelAsyncById(id);
+                if (hotel == null)
+                {
+                    return NotFound();
+                }
+                return Ok(hotel);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"No se pudo consultar los hoteles {ex.Message}");
+            }
         }
 
 
@@ -32,8 +44,20 @@ namespace HotelParcial.Controllers
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotelFree(string city)
         {
 
-            var rooms = await _hotelService.GetHotelAsync(city);
-            return Ok(rooms);
+            try
+            {
+                var rooms = await _hotelService.GetHotelAsync(city);
+                if (rooms == null)
+                {
+                    return NotFound();
+                }
+                return Ok(rooms);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception($"No se pudo realizar la consulta {ex.Message }");
+            }
 
         }
 
@@ -41,10 +65,17 @@ namespace HotelParcial.Controllers
         [Route("updateStartsById")]
         public async Task<ActionResult<Hotel>> updateStartsById(Guid id, int starts)
         {
-            Hotel hotel = await _hotelService.GetHotelAsyncByIdForEdit(id, starts);
+            try
+            {
+                Hotel hotel = await _hotelService.GetHotelAsyncByIdForEdit(id, starts);
+                return Ok($"Se ha actualizado las estrellas del hotel: {hotel.Name}, nueva calificación: {hotel.Stars} estrellas");
+            }
+            catch (Exception ex)
+            {
 
-            
-            return Ok(hotel);
+                throw new Exception($"No se pudo actualizar el hotel {ex.Message}");
+
+            }
 
         }
 
@@ -55,7 +86,7 @@ namespace HotelParcial.Controllers
         public async Task<ActionResult<Hotel>> DeleteHotelById(Guid id)
         {
             var hotel = await _hotelService.DeleteHotelByIdAsync(id);
-            return Ok(hotel);
+            return Ok($"Se ha eliminado correctamente el Hotel:{hotel.Name}, con id: {hotel.Id}");
         }
 
 

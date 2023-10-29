@@ -1,43 +1,29 @@
 ﻿using HotelParcial.Domain.Interfaces;
+using HotelParcial.Models;
 using HotelParcial.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelParcial.Domain.Services
 {
     public class RoomService : IRoomService
     {
-        public Task AddRoomAsync(Room room)
+        private readonly DataBaseContext _context;
+        public RoomService(DataBaseContext context) => _context = context;
+
+        public Task<Hotel> GetHotelByIdBeAvailable(Guid idHotel)
         {
-            throw new NotImplementedException();
+            var hotel = _context.Hotels.Where(h => h.Id == idHotel)
+                           .FirstOrDefaultAsync();
+            return hotel!;
         }
 
-        public Task DeleteRoomAsync(int id)
+        public Task<Room> GetRoomByIdBeAvailable(Guid idHotel, string number)
         {
-            throw new NotImplementedException();
+            var room = _context.Rooms.FirstOrDefaultAsync
+                (r => r.HotelId == idHotel && r.Number == number);
+            return room!;
         }
 
-        public Task<Room> GetRoomAsyncById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Room> GetRoomByHotelAsync(int IdHotel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Room> GetRoomByNumberAsync(string number)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Room>> GetRoomsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateRoomAsync(Room room)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

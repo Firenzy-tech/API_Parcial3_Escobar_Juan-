@@ -63,11 +63,7 @@ namespace HotelParcial.Domain.Services
             return hotel!;
 
         }
-
-        public Task<Hotel> GetHotelAsyncByIdForEdit(Guid id, string starts)
-        {
-            throw new NotImplementedException();
-        }
+               
 
         public Task<Hotel> UpdataStartsHotelById(Hotel hotel, int stars)
         {
@@ -79,10 +75,10 @@ namespace HotelParcial.Domain.Services
                 return Task.FromResult(hotel);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw new Exception($"No se pudo actualizar el hotel {ex.Message}");
             }
 
         }
